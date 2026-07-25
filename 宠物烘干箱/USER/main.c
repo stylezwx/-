@@ -98,7 +98,7 @@ static void StartDryMode(u32 mode_countdown, u8 mode_alarm_temp, u8 mode_pwm_dut
 {
     if(!sensor_data_valid)
     {
-        StopDryMode("Start rejected: temperature sensor data is invalid.");
+        StopDryMode(1, "Start rejected: temperature sensor data is invalid.");
         return;
     }
 
@@ -254,7 +254,7 @@ static void UpdateSensors(void)
     if(!sensor_data_valid && running)
     {
         sensor_fault_alarm = 1;
-        StopDryMode("Sensor fault: heater and fan stopped.");
+        StopDryMode(1, "Sensor fault: heater and fan stopped.");
     }
 
     printf(
@@ -305,7 +305,7 @@ static void UpdateCountdown(void)
         countdown--;
         if(countdown == 0U)
         {
-            StopDryMode("Time's up! Heater and fan stopped.");
+            StopDryMode(0, "Time's up! Heater and fan stopped.");
         }
     }
 }
@@ -335,7 +335,7 @@ static void UpdatePetMonitor(void)
     if(pet_absence_elapsed_ms >= PET_SENSOR_ABSENCE_TIMEOUT_MS && !pet_absence_alarm_triggered)
     {
         pet_absence_alarm_triggered = 1;
-        StopDryMode("Pet absence alert! Heater and fan stopped.");
+        StopDryMode(1, "Pet absence alert! Heater and fan stopped.");
     }
 }
 
