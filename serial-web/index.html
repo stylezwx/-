@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宠物烘干箱监测系统</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="background"></div>
+  <main class="app-shell">
+    <section class="hero">
+      <p class="eyebrow">STM32 / ESP32 / Web Serial / Local MySQL Bridge</p>
+      <h1>宠物烘干箱监测系统</h1>
+      <p class="hero-copy">
+        浏览器负责读取 STM32 和 ESP32 串口，本地服务负责写入 MySQL。页面不会直接连接数据库。
+      </p>
+    </section>
+
+    <section class="serial-grid">
+      <section class="panel controls-panel">
+        <div class="panel-header">
+          <h2>STM32 串口</h2>
+          <span id="stm32StatusBadge" class="status-badge offline">未连接</span>
+        </div>
+
+        <div class="controls-grid">
+          <label class="field">
+            <span>串口选择</span>
+            <select id="stm32PortSelect"></select>
+          </label>
+
+          <label class="field">
+            <span>波特率</span>
+            <input id="stm32BaudRateInput" type="number" min="1200" step="1" value="115200">
+          </label>
+
+          <div class="button-row">
+            <button id="stm32RefreshPortsButton" class="ghost-button">刷新串口</button>
+            <button id="stm32AddPortButton" class="secondary-button">新增串口</button>
+          </div>
+
+          <div class="button-row controls-actions">
+            <button id="stm32ConnectButton" class="primary-button">授权并连接串口</button>
+            <button id="stm32DisconnectButton" class="ghost-button" disabled>断开</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel controls-panel">
+        <div class="panel-header">
+          <h2>ESP32 串口</h2>
+          <span id="esp32StatusBadge" class="status-badge offline">未连接</span>
+        </div>
+
+        <div class="controls-grid">
+          <label class="field">
+            <span>串口选择</span>
+            <select id="esp32PortSelect"></select>
+          </label>
+
+          <label class="field">
+            <span>波特率</span>
+            <input id="esp32BaudRateInput" type="number" min="1200" step="1" value="115200">
+          </label>
+
+          <div class="button-row">
+            <button id="esp32RefreshPortsButton" class="ghost-button">刷新串口</button>
+            <button id="esp32AddPortButton" class="secondary-button">新增串口</button>
+          </div>
+
+          <div class="button-row controls-actions">
+            <button id="esp32ConnectButton" class="primary-button">授权并连接串口</button>
+            <button id="esp32DisconnectButton" class="ghost-button" disabled>断开</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel db-panel">
+      <div class="panel-header">
+        <h2>MySQL 配置</h2>
+        <span id="dbStatusBadge" class="status-badge offline">未启用</span>
+      </div>
+
+      <div class="db-grid">
+        <label class="field field-checkbox">
+          <span>启用数据库写入</span>
+          <input id="dbEnabledInput" type="checkbox">
+        </label>
+
+        <label class="field field-checkbox">
+          <span>自动保存串口数据</span>
+          <input id="autoSaveInput" type="checkbox" checked>
+        </label>
+
+        <label class="field">
+          <span>主机</span>
+          <input id="dbHostInput" type="text" value="127.0.0.1" placeholder="127.0.0.1">
+        </label>
+
+        <label class="field">
+          <span>端口</span>
+          <input id="dbPortInput" type="number" min="1" step="1" value="3306">
+        </label>
+
+        <label class="field">
+          <span>用户名</span>
+          <input id="dbUserInput" type="text" value="root" placeholder="root">
+        </label>
+
+        <label class="field">
+          <span>密码</span>
+          <input id="dbPasswordInput" type="password" placeholder="MySQL 密码">
+        </label>
+
+        <label class="field">
+          <span>数据库名</span>
+          <input id="dbNameInput" type="text" value="dht11_demo" placeholder="dht11_demo">
+        </label>
+
+        <label class="field">
+          <span>数据表名</span>
+          <input id="dbTableInput" type="text" value="telemetry_log" placeholder="telemetry_log">
+        </label>
+      </div>
+
+      <div class="button-row db-actions">
+        <button id="saveDbConfigButton" class="primary-button">保存配置</button>
+        <button id="initDbButton" class="secondary-button">初始化数据表</button>
+      </div>
+
+      <p class="hint">
+        数据库配置会保存到当前目录下的本地服务配置文件。只有本机的 `http://localhost:8080` 页面会调用它。
+      </p>
+      <p id="dbRuntimeHint" class="hint runtime-hint">等待加载数据库配置...</p>
+    </section>
+
+    <section class="stats-grid">
+      <article class="panel stat-card">
+        <span class="stat-label">DHT11-1 温度</span>
+        <strong id="temp1Value" class="stat-value">--</strong>
+        <span class="stat-unit">°C</span>
+      </article>
+
+      <article class="panel stat-card">
+        <span class="stat-label">DHT11-2 温度</span>
+        <strong id="temp2Value" class="stat-value">--</strong>
+        <span class="stat-unit">°C</span>
+      </article>
+
+      <article class="panel stat-card">
+        <span class="stat-label">剩余倒计时</span>
+        <strong id="countdownValue" class="stat-value">--</strong>
+        <span class="stat-unit">秒</span>
+      </article>
+
+      <article class="panel stat-card">
+        <span class="stat-label">报警温度</span>
+        <strong id="alarmValue" class="stat-value">--</strong>
+        <span class="stat-unit">°C</span>
+      </article>
+    </section>
+
+    <section class="panel command-panel">
+      <div class="panel-header">
+        <h2>发送命令</h2>
+      </div>
+
+      <p class="hint">
+        快捷命令和 PWM 控制只发送到 STM32，自定义命令可以选择发送到 STM32 或 ESP32。
+      </p>
+
+      <div class="button-row">
+        <button data-quick-command="dog_small" class="secondary-button quick-command">小型犬</button>
+        <button data-quick-command="dog_medium" class="secondary-button quick-command">中型犬</button>
+        <button data-quick-command="dog_large" class="secondary-button quick-command">大型犬</button>
+      </div>
+
+      <div class="button-row">
+        <button data-quick-command="cat_small" class="secondary-button quick-command">小型猫</button>
+        <button data-quick-command="cat_medium" class="secondary-button quick-command">中型猫</button>
+        <button data-quick-command="cat_large" class="secondary-button quick-command">大型猫</button>
+      </div>
+
+      <div class="button-row">
+        <button data-quick-command="key_up" class="ghost-button quick-command">时间 +60s</button>
+        <button data-quick-command="key_down" class="ghost-button quick-command">时间 -60s</button>
+        <button data-quick-command="temp_up" class="ghost-button quick-command">报警温度 +1</button>
+        <button data-quick-command="temp_down" class="ghost-button quick-command">报警温度 -1</button>
+      </div>
+
+      <div class="fan-speed-card">
+        <div class="fan-speed-header">
+          <span>PWM Fan Speed</span>
+          <strong id="fanSpeedValue" class="fan-speed-value">0%</strong>
+        </div>
+        <input id="fanSpeedInput" class="fan-speed-slider" type="range" min="0" max="100" step="1" value="0">
+        <div class="button-row fan-speed-actions">
+          <button id="setFanSpeedButton" class="primary-button" disabled>Set PWM</button>
+        </div>
+      </div>
+
+      <div class="command-form">
+        <label class="field">
+          <span>发送目标</span>
+          <select id="commandTargetSelect">
+            <option value="stm32">STM32</option>
+            <option value="esp32">ESP32</option>
+          </select>
+        </label>
+        <label class="field command-field">
+          <span>自定义命令</span>
+          <input id="customCommandInput" type="text" placeholder="例如：dog_small">
+        </label>
+        <button id="sendCustomButton" class="primary-button" disabled>发送</button>
+      </div>
+    </section>
+
+    <section class="panel log-panel">
+      <div class="panel-header">
+        <h2>实时日志</h2>
+        <span id="lineCountLabel" class="line-count">0 行</span>
+      </div>
+
+      <div id="logOutput" class="log-output" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

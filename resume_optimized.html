@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>周王鑫-嵌入式开发简历</title>
+<style>
+  @page { size: A4; margin: 10mm 12mm; }
+  * { box-sizing: border-box; }
+  body { width: 186mm; margin: 0 auto; color: #202124; font-family: "Microsoft YaHei", "SimSun", sans-serif; font-size: 9.5pt; line-height: 1.3; }
+  header { border-bottom: 2.2pt solid #176b5b; padding-bottom: 5pt; margin-bottom: 5pt; }
+  h1 { margin: 0 0 2pt; font-size: 21pt; line-height: 1.05; letter-spacing: 0; }
+  .target { color: #176b5b; font-weight: 700; font-size: 11pt; margin-bottom: 3pt; }
+  .contact { color: #3c4043; font-size: 9.5pt; }
+  section { margin-top: 4pt; }
+  h2 { margin: 0 0 3pt; padding-bottom: 1pt; color: #176b5b; border-bottom: 1pt solid #a9c8c1; font-size: 11.5pt; letter-spacing: 0; }
+  .row { display: table; width: 100%; margin-bottom: 2pt; }
+  .row > div { display: table-cell; vertical-align: top; }
+  .right { text-align: right; white-space: nowrap; color: #555; }
+  .title { font-weight: 700; }
+  .sub { color: #555; font-size: 9.5pt; }
+  ul { margin: 2pt 0 0 16pt; padding: 0; }
+  li { margin: 0 0 1pt; padding-left: 1pt; }
+  .skill-line { margin: 0 0 1pt; }
+  .skill-line b { color: #333; }
+  strong { font-weight: 700; }
+</style>
+</head>
+<body>
+<header>
+  <h1>周王鑫</h1>
+  <div class="target">嵌入式开发实习生 / 初级嵌入式工程师｜江浙沪｜可随时到岗</div>
+  <div class="contact">手机：18068146938　｜　邮箱：771691858@qq.com　｜　微信：zwxwz163893472</div>
+</header>
+
+<section>
+  <h2>教育背景</h2>
+  <div class="row"><div><span class="title">江苏理工学院</span>　计算机科学与技术（本科）</div><div class="right">2022.09 - 2026.06</div></div>
+</section>
+
+<section>
+  <h2>专业技能</h2>
+  <div class="skill-line"><b>编程基础：</b>掌握 C 语言、指针、内存管理和常用数据结构；了解 C++ 面向对象编程。</div>
+  <div class="skill-line"><b>嵌入式开发：</b>熟悉 STM32F1、标准外设库 / HAL 库开发流程，能够完成 GPIO、UART、I2C、SPI、ADC、DMA、Timer、PWM 等外设配置与驱动开发。</div>
+  <div class="skill-line"><b>系统与协议：</b>了解 FreeRTOS 任务调度、消息队列和互斥锁；了解 Linux 基础及 TCP/IP 协议栈。</div>
+  <div class="skill-line"><b>工具与硬件：</b>使用 Keil MDK、STM32CubeMX、VS Code、Git；能阅读原理图并使用万用表、电烙铁等进行基础调试；了解 Altium Designer、嘉立创 EDA。</div>
+</section>
+
+<section>
+  <h2>实习与实训经历</h2>
+  <div class="row"><div><span class="title">南通丹恩电子科技有限公司</span>　嵌入式开发实习</div><div class="right">2025.12 - 2026.01</div></div>
+  <div class="sub">315 MHz 无线遥控接收模块（STM32F103）</div>
+  <ul>
+    <li>基于定时器捕获高、低电平脉宽，实现 <strong>EV1527 编码协议解析</strong>及 18 个按键映射，覆盖方向键、功能键和数字键。</li>
+    <li>加入<strong>连续两帧一致性校验</strong>，降低干扰脉冲造成的误触发；通过 UART 输出接收码值与解析状态，辅助问题定位。</li>
+    <li>使用结构体集中管理接收状态和解析数据，拆分脉宽判断、数据校验与按键映射逻辑，提升代码可读性和可维护性。</li>
+  </ul>
+
+  <div class="row" style="margin-top:4pt"><div><span class="title">杰普软件有限公司</span>　嵌入式开发方向实训生</div><div class="right">2025.07 - 2025.11</div></div>
+  <div class="sub">物联网环境监测系统</div>
+  <ul>
+    <li>参与农业大棚环境监测系统的方案设计与功能实现，围绕环境数据采集、状态展示和设备联动完成模块开发与联调。</li>
+    <li>结合串口日志进行功能验证与异常排查，整理项目代码及开发文档，形成可演示的系统成果。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>项目经历</h2>
+  <div class="row"><div><span class="title">基于 STM32 与蓝牙物联网的智能宠物烘干箱</span></div><div class="right">毕业设计</div></div>
+  <div class="sub">STM32F103C8T6｜ESP32-S3｜C｜标准外设库 / 寄存器｜ESP-IDF 5.5.2 / NimBLE｜Web Serial API｜Node.js｜MySQL</div>
+  <ul>
+    <li>独立完成“<strong>STM32 下位机 + ESP32-S3 蓝牙 + Web 上位机 + MySQL</strong>”全链路系统设计与联调，覆盖环境采集、烘干控制、无线指令收发、实时监控与运行数据持久化。</li>
+    <li>STM32 侧采用<strong>标准库与寄存器混合开发</strong>，驱动双路 DHT11（GPIO 单总线）、SSD1306 OLED（软件模拟 I²C）、继电器、蜂鸣器、4 路按键及 <strong>TIM3 25 kHz PWM</strong> 风速（0–100% 占空比可调）；按猫 / 犬 × 大中小设计 <strong>6 组参数化模式</strong>，每组含烘干时长、报警温度与风速三参数。</li>
+    <li>以 <strong>TIM2 硬件计时（0.1 ms tick）</strong>累加构建毫秒级软件时基，裸机前后台<strong>非阻塞调度</strong> 100 ms 在位检测、1 s 双温采样与倒计时任务；600 s 计时测试累计误差 &lt; 3 s。</li>
+    <li>实现<strong>双传感器冗余温控与多级安全保护</strong>：任一路温度越限即经继电器切断加热，超阈值 5 ℃触发蜂鸣报警，宠物持续离箱 5 s 自动停机、断电并告警。</li>
+    <li>USART1（115200/8-N-1）经 RXNE 中断环形缓冲接收 <strong>ASCII 文本行命令协议</strong>，解析 6 组模式及时长 / 温度微调、pwm 调速等指令；ESP32-S3 基于 ESP-IDF / NimBLE 实现 GATT 服务（0xFFF0，写 0xFFF1 / 读-通知 0xFFF2）完成 BLE 指令收发。</li>
+    <li>开发原生 <strong>Web Serial 双串口上位机</strong>（分别连接 STM32 与 ESP32），正则解析温湿度 / 倒计时 / 报警 / PWM / 状态遥测并实时展示，实现命令队列串行化下发与 <strong>ESP32→STM32 透传转发</strong>；Node.js 原生 HTTP 服务经 mysql 客户端自动建表（幂等加列迁移）并落库。</li>
+  </ul>
+</section>
+</body>
+</html>

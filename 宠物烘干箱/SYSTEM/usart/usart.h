@@ -1,0 +1,31 @@
+#ifndef __USART1_H
+#define	__USART1_H
+
+#include "stm32f10x.h"
+#include <stdio.h>
+
+typedef enum
+{
+	USART1_CMD_NONE = 0,
+	USART1_CMD_DOG_SMALL,
+	USART1_CMD_DOG_MEDIUM,
+	USART1_CMD_DOG_LARGE,
+	USART1_CMD_CAT_SMALL,
+	USART1_CMD_CAT_MEDIUM,
+	USART1_CMD_CAT_LARGE,
+	USART1_CMD_KEY_UP,
+	USART1_CMD_KEY_DOWN,
+	USART1_CMD_TEMP_UP,
+	USART1_CMD_TEMP_DOWN,
+	USART1_CMD_SET_PWM,
+	USART1_CMD_PET_MONITOR_ON,
+	USART1_CMD_PET_MONITOR_OFF
+} USART1_Command;
+
+void USART1_Config(void);
+int fputc(int ch, FILE *f);
+void USART1_printf(USART_TypeDef* USARTx, uint8_t *Data,...);
+USART1_Command USART1_GetCommand(void);
+u8 USART1_GetPwmDuty(void);
+
+#endif /* __USART1_H */

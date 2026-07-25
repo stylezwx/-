@@ -1,0 +1,34 @@
+Net,Connections,Electrical requirement
++12V_RAW,J1.1 D1.A D2.K,12 V DC input only
+GND,J1.2 D2.A C11.2 C12.2 U2.GND U1.VSS_1 U1.VSS_2 U1.VSS_3 U1.VSSA J2.1 J3.3 J4.3 J5.1 J6.3 J8.4 J9.4 J11.2 BZ1.2 Q1.E Q2.E,Single solid ground plane
++12V_FUSED,D1.K F1.1,Fused after polarity protection
+FAN_12V,F1.2 C11.1 C12.1 J2.2,Minimum 2.5 mm trace or copper pour
++5V,J11.3 U2.IN BZ1.1 R10.1,Provided by a 12-to-5 V buck module rated at least 500 mA
++3V3,U2.OUT U1.VDD_1 U1.VDD_2 U1.VDD_3 U1.VDDA C3.1 C4.1 C5.1 C6.1 C7.1 C8.1 C9.1 J3.1 J4.1 J5.2 J6.1 J8.1 J9.1,Logic rail
++12V_BUCK,J11.1 +12V_FUSED,Supply to buck module
+NRST,U1.NRST R1.2 R2.1,R1.1 to +3V3
+OSC_IN,U1.PD0 Y1.1 C1.1,C1.2 to GND
+OSC_OUT,U1.PD1 Y1.2 C2.1,C2.2 to GND
+KEY_UP,U1.PA0 K1.1,K1.2 to GND
+KEY_DOWN,U1.PA1 K2.1,K2.2 to GND
+KEY_TEMP_UP,U1.PA2 K3.1,K3.2 to GND
+KEY_TEMP_DOWN,U1.PA3 K4.1,K4.2 to GND
+FAN_PWM_MCU,U1.PA6 U4.A R13.1,R13.2 to GND
+FAN_PWM_OC,U4.Y J2.4,Open drain no board pull-up
+USART_TX,U1.PA9 J8.2,
+USART_RX,U1.PA10 J8.3,
+DHT11_1,U1.PA11 J3.2 R3.1,R3.2 to +3V3
+DHT11_2,U1.PA12 J4.2 R4.1,R4.2 to +3V3
+OLED_SCL,U1.PB8 J5.3 R5.1,R5.2 to +3V3
+OLED_SDA,U1.PB9 J5.4 R6.1,R6.2 to +3V3
+HEATER_EN_N,U1.PB11 R11.1 R12.1,R11.2 to +3V3; R12.2 to Q2.B
+HEATER_LED_DRIVE,Q2.C U3.K,PB11 low turns optocoupler on; U3.A fed from +5V through R10
+SSR_IN_PLUS,U3.C J7.1,Isolated transistor collector; no connection to board power or ground
+SSR_IN_MINUS,U3.E J7.2,Isolated transistor emitter; no connection to board power or ground
+PET_PRESENT,U1.PB12 J6.2,MCU internal pull-up; low means present
+BUZZER_CTRL,U1.PB13 R8.1 R9.1,R8.2 to Q1.B; R9.2 to GND
+STATUS_LED,U1.PC13 R7.1,R7.2 to D3.A; D3.K to GND; verify polarity with firmware
+FAN_TACH,U1.PB14 J2.3 R14.1,R14.2 to +3V3; reserved firmware input
+SWDIO,U1.PA13 J9.2,
+SWCLK,U1.PA14 J9.3,
+BOOT0,U1.BOOT0 R15.1,R15.2 to GND

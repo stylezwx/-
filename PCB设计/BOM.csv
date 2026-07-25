@@ -1,0 +1,43 @@
+Designator,Qty,Value/Part,Package,Description,Assembly note
+U1,1,STM32F103C8T6,LQFP-48,Main MCU,Use genuine ST part
+U2,1,AMS1117-3.3,SOT-223,3.3 V regulator,Logic rail only
+U3,1,PC817C,DIP-4,Heater-control optocoupler,Keep isolation slot under U3
+U4,1,74LVC1G07,SOT-23-5,Open-drain fan PWM buffer,5 V tolerant open drain output
+Y1,1,8 MHz crystal,3225-4P,MCU HSE crystal,CL 12 pF typical
+C1 C2,2,18 pF,C0603,Crystal load capacitors,Adjust to crystal CL
+C3-C8,6,100 nF,C0603,MCU and IC decoupling,Place within 2 mm of supply pins
+C9 C10,2,10 uF,C0805,3.3 V regulator capacitors,X7R 10 V minimum
+C11,1,470 uF 25 V,Radial_D8,12 V fan bulk capacitor,Low ESR
+C12,1,100 nF 25 V,C0603,12 V high-frequency bypass,
+R1,1,10 k,R0603,NRST pull-up,
+R2,1,100 R,R0603,NRST series/test isolation,Optional DNP
+R3 R4,2,4.7 k,R0603,DHT11 pull-ups to 3.3 V,
+R5 R6,2,4.7 k,R0603,OLED I2C pull-ups to 3.3 V,
+R7,1,1 k,R0603,Status LED resistor,
+R8,1,2.2 k,R0603,Buzzer base resistor,
+R9,1,10 k,R0603,Buzzer base pull-down,
+R10,1,1 k,R0603,PC817 input LED resistor from 5 V,
+R11,1,10 k,R0603,HEATER_EN transistor base pull-up,Ensures heater off at reset
+R12,1,2.2 k,R0603,HEATER_EN transistor base resistor,
+R13,1,10 k,R0603,FAN_PWM buffer input pull-down,Fan defaults off command
+R14,1,4.7 k,R0603,FAN_TACH pull-up to 3.3 V,
+R15,1,10 k,R0603,BOOT0 pull-down,
+Q1,1,S8050,SOT-23,NPN active buzzer driver,
+Q2,1,S8050,SOT-23,Inverter/driver for PC817 input,Maintains PB11 low-active behavior
+D1,1,SS34,SMA,12 V reverse-polarity series protection,Use ideal diode MOSFET if voltage drop matters
+D2,1,SMBJ18A,SMB,12 V input TVS,
+D3,1,Green LED,LED0603,Status LED,
+BZ1,1,5 V active buzzer,12 mm THT,Alarm,
+F1,1,3 A resettable fuse,1812,12 V fan/input protection,Hold current >=2.2 A
+J1,1,2-pin 5.08 mm terminal,KF301-2P,12 V DC input,Pin1 +12V pin2 GND
+J2,1,4-pin 2.54 mm locking header,KK254-4P,Four-wire fan,1 GND 2 +12V 3 TACH 4 PWM
+J3 J4,2,3-pin JST-XH,JST-XH-3P,DHT11 sensors,1 3V3 2 DATA 3 GND
+J5,1,4-pin JST-XH,JST-XH-4P,SSD1306 OLED,1 GND 2 3V3 3 SCL 4 SDA
+J6,1,3-pin JST-XH,JST-XH-3P,Pet presence sensor,1 3V3 2 SIGNAL 3 GND
+J7,1,2-pin 5.08 mm terminal,KF301-2P,Isolated external heater control,1 SSR_IN_PLUS 2 SSR_IN_MINUS
+J8,1,4-pin 2.54 mm header,Header_1x4,USART1 adapter,1 3V3 2 TX 3 RX 4 GND
+J9,1,4-pin 2.54 mm header,Header_1x4,SWD,1 3V3 2 SWDIO 3 SWCLK 4 GND
+J10,1,2-pin 3.81 mm terminal,KF128-2P,Safety-loop dry contact/status input,Reserved
+J11,1,3-pin 2.54 mm header,Header_1x3,12 V to 5 V buck module,1 12V 2 GND 3 5V
+K1-K4,4,6x6 mm tactile switch,SW_PUSH_6x6,Local controls,
+H1-H4,4,M3 mounting hole,MountingHole_3.2mm,Board mounting,Plated disabled
